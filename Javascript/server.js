@@ -60,14 +60,53 @@
 // age +=1
 // console.log(age, typeof(age))
 
-let x = "Hamza"
-let y = 4
-let z = "Hamza Mustafa"
+// let x = "Hamza"
+// let y = 4
+// let z = "Hamza Mustafa"
 
-x = Number(x)
-y = String(y)
-z = Boolean(z)
+// x = Number(x)
+// y = String(y)
+// z = Boolean(z)
 
-console.log (x, typeof(x))
-console.log (y, typeof(y))
-console.log (z, typeof(z))
+// console.log (x, typeof(x))
+// console.log (y, typeof(y))
+// console.log (z, typeof(z))
+
+const pi = 3.14159
+let raduis 
+let circlecumference 
+
+// raduis = window.prompt("Please enter raduis of a circle")
+
+
+
+
+
+// document.getElementById("mySubmit").onclick = () => {
+//     raduis = document.getElementById("myResult").value
+//     raduis = Number(raduis)
+//     console.log (circlecumference)
+//     circlecumference = 2 * pi * raduis
+//     document.getElementById("result").textContent = circlecumference
+// }
+
+// counter
+
+const decrease = document.getElementById("decrease")
+const reset = document.getElementById("reset")
+const increase = document.getElementById("increase")
+const lblCounter = document.getElementById("lblCounter")
+let count = 0
+
+increase.onclick = () =>{
+    count ++
+    lblCounter.textContent = count
+}
+decrease.onclick = () =>{
+    count --
+    lblCounter.textContent = count
+}
+reset.onclick = () =>{
+    count = 0
+    lblCounter.textContent = count
+}
