@@ -42,6 +42,32 @@
 
 // console.log(students)
 
-let result = 2 + 3 / 4 * 4 + (34+1)
+// let result = 2 + 3 / 4 * 4 + (34+1)
 
-console.log(result)
+// console.log(result)
+
+// let username
+// // username = window.prompt("What is your username")
+// // console.log(username)
+
+// document.getElementById("mySubmit").onclick = function () {
+//     username = document.getElementById("myText").value
+//     console.log(username)
+// }
+
+// let age = window.prompt("What is your age")
+// age = Number(age)
+// age +=1
+// console.log(age, typeof(age))
+
+let x = "Hamza"
+let y = 4
+let z = "Hamza Mustafa"
+
+x = Number(x)
+y = String(y)
+z = Boolean(z)
+
+console.log (x, typeof(x))
+console.log (y, typeof(y))
+console.log (z, typeof(z))
