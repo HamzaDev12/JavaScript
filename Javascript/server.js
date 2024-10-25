@@ -110,3 +110,19 @@ reset.onclick = () =>{
     count = 0
     lblCounter.textContent = count
 }
+
+
+let x = -25
+let y = 2
+let z = 20
+let max = Math.max(x, y , z)
+let min = Math.min(x, y , z)
+
+// z = Math.random(x)
+// z = Math.floor(x)
+// z = Math.sqrt(x)
+// z = Math.cos(x)
+// z = Math.sin(x)
+// z = Math.tan(x)
+// z = Math.abs(x)
+console.log(max, min)
