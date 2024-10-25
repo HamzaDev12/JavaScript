@@ -112,11 +112,11 @@ reset.onclick = () =>{
 }
 
 
-let x = -25
-let y = 2
-let z = 20
-let max = Math.max(x, y , z)
-let min = Math.min(x, y , z)
+// let x = -25
+// let y = 2
+// let z = 20
+// let max = Math.max(x, y , z)
+// let min = Math.min(x, y , z)
 
 // z = Math.random(x)
 // z = Math.floor(x)
@@ -125,4 +125,32 @@ let min = Math.min(x, y , z)
 // z = Math.sin(x)
 // z = Math.tan(x)
 // z = Math.abs(x)
-console.log(max, min)
+// console.log(max, min)
+
+// const min = 10
+// const max = 100
+
+// let randomNumber = Math.floor(Math.random() * (max - min) + min)
+// console.log(randomNumber)
+
+
+const Myroll = document.getElementById("myroll")
+const Mylabel = document.getElementById("myLabel")
+const Mylabel1 = document.getElementById("myLabel1")
+const Mylabel2 = document.getElementById("myLabel2")
+
+let min = 1
+let max = 10
+
+let ramdomNumber
+let ramdomNumber1
+let ramdomNumber2
+
+Myroll.onclick = () => {
+    ramdomNumber = Math.floor(Math.random() * (max - min) + min)
+    ramdomNumber1 = Math.floor(Math.random() * (max - min) + min)
+    ramdomNumber2 = Math.floor(Math.random() * (max - min) + min)
+    Mylabel.textContent = ramdomNumber
+    Mylabel1.textContent = ramdomNumber1
+    Mylabel2.textContent = ramdomNumber2
+}

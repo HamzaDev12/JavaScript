@@ -40,3 +40,21 @@ label{
     font-weight: 800;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+.lbl-btn{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+}
+
+#myroll{
+    background-color: rgb(0, 0, 255);
+    border: none;
+    border-radius: 10px;
+    padding: 15px 40px;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.25s ease;
+}
+#myroll:hover{
+    background-color: rgb(58, 58, 227) ;
+}
