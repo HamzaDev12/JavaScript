@@ -154,3 +154,64 @@ Myroll.onclick = () => {
     Mylabel1.textContent = ramdomNumber1
     Mylabel2.textContent = ramdomNumber2
 }
+
+
+
+// if (age >= 18){
+//     console.log("You are teenager")
+// } else {
+//     console.log("You are child")
+// }
+
+// let isStudent = false
+
+// if(isStudent){
+//     console.log("You are student")
+// } else {
+//     console.log("You are not student")
+// }
+
+const myAge = document.getElementById("myAge");
+const MyageSubmit = document.getElementById("myAgeSubmit");
+const resultAge = document.getElementById("resultAge");
+let age
+
+MyageSubmit.onclick = function(){
+    age = myAge.value
+    age = Number(age)
+
+    if(age >= 100){
+        resultAge.textContent = `You are too old `
+    } else if(age == 0){
+        resultAge.textContent = `You cant enter`
+    } else if(age >= 18){
+        resultAge.textContent = `you are old enough to enter`
+    } else if(age > 0){
+        resultAge.textContent = `Your age can't be less than 0`
+    } else {
+        resultAge.textContent = `You must enter be 18+ years`
+    }
+}
+
+const myCheckbox = document.getElementById("myCheckbox")
+const visaBtn = document.getElementById("visaBtn")
+const masterCard = document.getElementById("masterCard")
+const payPalBtn = document.getElementById("payPalBtn")
+const sub = document.getElementById("sub")
+const subResult = document.getElementById("subResult")
+const paymentResult = document.getElementById("paymentResult")
+
+sub.onclick = function() {
+    if (myCheckbox.checked){
+        subResult.textContent = `You Are subcribed!`
+    } else{
+        subResult.textContent = `You Are NOT subcribed!`
+    }
+    if(visaBtn.checked){
+        paymentResult.textContent =`you are paying Visa`
+    } else if (masterCard.cheked){
+        paymentResult.textContent =`you are paying MasterCard`
+    } else {
+        paymentResult.textContent =`you must be selected first`
+    }
+}
