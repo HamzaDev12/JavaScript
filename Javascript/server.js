@@ -140,7 +140,7 @@ const Mylabel1 = document.getElementById("myLabel1")
 const Mylabel2 = document.getElementById("myLabel2")
 
 let min = 1
-let max = 10
+let max = 100
 
 let ramdomNumber
 let ramdomNumber1
@@ -215,3 +215,13 @@ sub.onclick = function() {
         paymentResult.textContent =`you must be selected first`
     }
 }
+
+let da = 18
+let fariin = da > 18 ? "yes" : "no"
+
+console.log(fariin)
+
+let time = 12
+let greeting = time < 12 ? "Good Morning" : "Good evening"
+
+console.log(greeting)
