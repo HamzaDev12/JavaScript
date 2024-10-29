@@ -225,3 +225,56 @@ let time = 12
 let greeting = time < 12 ? "Good Morning" : "Good evening"
 
 console.log(greeting)
+
+let amount = 123
+let dicount = amount >= 100 ? 10 : 0
+
+console.log(`Your total is $${amount - amount * (discount/100)}`)
+
+let day = 1
+
+switch(day) {
+    case 1:
+         console.log("Sabti")
+        break
+    case 2:
+        console.log("Axad")
+        break
+    case 3:
+        console.log("Isniin")
+        break
+    case 4:
+        console.log("Salaasa")
+        break
+    case 5: 
+        console.log("Arbaca")
+        break
+    case 6:
+        console.log("Khamiis")
+        break
+    case 7:
+        console.log("Jimce")
+        break
+    
+        default:
+        console.log(`${day} is not a day`)
+}
+
+let Magac = "Hamza"
+
+console.log(Magac.charAt(0))
+console.log(Magac.indexOf(a))
+console.log(Magac.lastIndexOf(h))
+console.log(Magac.trim())
+console.log(Magac.length())
+
+
+let fullname = "Hamza Mustfa"
+let fullName = fullname.slice(0, 4)
+
+let firstname = fullname.slice(0, fullname.indexOf(":"))
+let lastname = fullname.slice(fullname.indexOf(":") + 1)
+
+console.log(fullName)
+console.log(firstname)
+console.log(lastname)
