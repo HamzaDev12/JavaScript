@@ -1,0 +1,55 @@
+Javscript
+-----------
+Lesson plan
+-----------
+
+1. Functions
+   a. Arrow function
+   b. Functions in variable
+   c. Old way 
+
+2. Objects
+3. Arrays
+   a. Index -> Array[index]
+   b. Length -> To get total items of the array
+   c. push -> To add value to the array at the end.
+   d. unshift -> To add value at the start of the array
+   e. pop -> Removes last element.
+   f. shift -> Removes first element 
+   g. Higher order functions (Later)
+
+4. Loops
+   a. For loop
+   b. While loop
+   c. Do while loop (You)
+
+
+5. Higher order functions 
+   a. map -> Always returns array (New array)
+   b. filter -> Filters out some of the values (New array)
+   c. find
+   d. reduce
+   e. flatMap
+
+
+
+DOM
+-----------
+1. JavaScript Selectors
+ -  Get element by id => returns single element
+ -  Get element by class name => returns an array of elements with that class name
+ -  Get element by tag name => returns an array of elements with that tag name eg. p, h1, form, etc...
+ -  Query selector => 
+ -  Query selector all => 
+
+
+2. Working with CSS Classes
+ - How to add css class into an element
+ - // //  Toggle
+ - // //  Replace
+ - // // Remove
+ - Checking if element has a class
+
+
+3. Creating new elements into the page
+4. Removing elements from the page

@@ -93,3 +93,7 @@ function Hamza (name, age, address) {
 
 const People = new Hamza('Hamza', 18, ' Hargeisa, Somliland ')
 console.log(People)
+
+for (let i = 0; i => 10, i++;) {
+    console.log(i)
+}
