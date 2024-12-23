@@ -47,7 +47,7 @@ model replys {
   id Int @id @default(autoincrement())
   contetn String
   commentId Int
-created_at DateTime @default(now())
+  created_at DateTime @default(now())
   updated_at DateTime @default(now())
 
   comment comments @relation(fields: [commentId], references: [id])

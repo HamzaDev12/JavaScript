@@ -5,7 +5,7 @@ const {
   messageError,
   messagenotfound,
   messageCreated,
-} = require("../constents/index");
+} = require("../messages/index");
 
 const createUser = async (req, res) => {
   try {
