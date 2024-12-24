@@ -25,6 +25,7 @@ model posts {
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
   comment comments[]
+  reaction reactions[]
   userID Int
   user users @relation(fields: [userID], references: [id])
 }
@@ -37,7 +38,7 @@ model comments {
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
   reply replys[]
-  reaction reactions[]
+
 
   user users @relation(fields: [userId], references: [id])
   post posts @relation(fields: [postId],references: [id])
@@ -57,9 +58,9 @@ model replys {
 model reactions {
   id Int @id @default(autoincrement())
   reactionType String
-  commentId Int
+  PostID Int
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
 
-  comment comments @relation(fields: [commentId],references: [id])
+  post posts @relation(fields: [PostID],references: [id])
 }

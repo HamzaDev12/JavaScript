@@ -42,7 +42,12 @@ const createPost = async (req, res) => {
 
 const readPost = async (req, res) => {
   try {
-    const post = await prisma.posts.findMany();
+    const post = await prisma.posts.findMany({
+      include: {
+        user: true,
+        post: true,
+      },
+    });
 
     if (!post || post.length === 0) {
       res.status(404).json({
@@ -118,6 +123,10 @@ const findbyID = async (req, res) => {
     const post = await prisma.posts.findFirst({
       where: {
         id: +postID,
+      },
+      include: {
+        user: true,
+        post: true,
       },
     });
     if (!post) {

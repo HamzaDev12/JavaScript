@@ -9,60 +9,28 @@ const {
   messagenotfound,
   requiredMessage,
   updatedMessage,
-} = require("../messages");
-const { parse } = require("dotenv");
+} = require("../messages/index");
 
-const createCopmment = async (req, res) => {
+const createReation = async (req, res) => {
   try {
-    const { content, userId, postId } = req.body;
-    if (!content || !userId || !postId) {
+    const { reactionType, PostID } = req.body;
+    if (!reactionType || !PostID) {
       res.status(400).json({
         isSuccess: false,
         message: requiredMessage,
       });
       return;
     }
-    const creatingComment = await prisma.comments.create({
+    const creatingReaction = await prisma.reactions.create({
       data: {
-        content,
-        userId,
-        postId,
+        reactionType,
+        PostID,
       },
     });
-
     res.status(201).json({
       isSuccess: true,
       message: messageCreated,
-      newRecord: creatingComment,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      isSuccess: false,
-      messagae: messageError,
-    });
-  }
-};
-
-const readComment = async (req, res) => {
-  try {
-    const comment = await prisma.comments.findMany({
-      include: {
-        user: true,
-        post: true,
-      },
-    });
-    if (!comment || comment.length === 0) {
-      res.status(404).json({
-        isSuccess: false,
-        message: "No comments found",
-      });
-      return;
-    }
-    res.status(302).json({
-      isSucces: true,
-      message: foundedMessage,
-      comments: comment,
+      newCreateReaction: creatingReaction,
     });
   } catch (error) {
     console.log(error);
@@ -73,111 +41,101 @@ const readComment = async (req, res) => {
   }
 };
 
-const updateComment = async (req, res) => {
+const readReaction = async (req, res) => {
   try {
-    const { commentId, postId, userId, content } = req.body;
-    if (!commentId || !postId || !userId || !content) {
+    const reaction = await prisma.reactions.findMany({
+      include: {
+        post: true,
+      },
+    });
+    if (!reaction || reaction.length == 0) {
+      res.status(404).json({
+        isSuccess: false,
+        message: messagenotfound,
+      });
+      return;
+    }
+
+    res.status(302).json({
+      isSuccess: true,
+      message: foundedMessage,
+      reactions: reaction,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      isSuccess: false,
+      message: messageError,
+    });
+  }
+};
+
+const updateReaction = async (req, res) => {
+  try {
+    const { reationId, reactionType, PostID } = req.body;
+    if (!reactionType || !reationId || !PostID) {
       res.status(400).json({
         isSuccess: false,
         message: requiredMessage,
       });
       return;
     }
-
-    const comment = await prisma.comments.findFirst({
+    const reaction = await prisma.reactions.findFirst({
       where: {
-        id: +commentId,
+        id: parseInt(reationId),
       },
     });
-    if (!comment) {
+    if (!reaction) {
       res.status(404).json({
         isSuccess: false,
         message: messagenotfound,
       });
       return;
     }
-
-    const updatingComment = await prisma.comments.update({
+    const updatingReaction = await prisma.reactions.update({
       where: {
-        id: comment.id,
+        id: parseInt(reationId),
       },
-      data: {
-        postId,
-        content,
-        userId,
+      include: {
+        PostID,
+        reactionType,
       },
     });
-
     res.status(201).json({
       isSuccess: true,
       message: updatedMessage,
-      newUpdate: updatingComment,
+      updatedTheRecord: updatingReaction,
     });
   } catch (error) {
     console.log(error);
     res.status(500).json({
       isSuccess: false,
-      messagae: messageError,
+      message: messageError,
     });
   }
 };
 
-const findbyID = async (req, res) => {
+const deleteReaction = async (req, res) => {
   try {
-    const { commentId } = req.params;
-    const comment = await prisma.comments.findFirst({
+    const { reationId } = req.params;
+    const reaction = await prisma.reactions.findFirst({
       where: {
-        id: parseInt(commentId),
-      },
-      include: {
-        user: true,
-        post: true,
+        id: parseInt(reationId),
       },
     });
-    if (!comment) {
+
+    if (!reaction) {
       res.status(404).json({
         isSuccess: false,
         message: messagenotfound,
       });
       return;
     }
-    res.status(302).json({
-      isSuccess: true,
-      message: foundedMessage,
-      findingData: comment,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      isSuccess: false,
-      messagae: messageError,
-    });
-  }
-};
-
-const deletecomment = async (req, res) => {
-  try {
-    const { commentId } = req.params;
-    const comment = await prisma.comments.findFirst({
+    const deletingReaction = await prisma.reactions.delete({
       where: {
-        id: parseInt(commentId),
+        id: parseInt(reationId),
       },
     });
-
-    if (!comment) {
-      res.status(404).json({
-        isSuccess: false,
-        message: messagenotfound,
-      });
-      return;
-    }
-
-    const deletingComment = await prisma.comments.delete({
-      where: {
-        id: comment.id,
-      },
-    });
-
     res.status(200).json({
       isSuccess: true,
       message: deletingMessage,
@@ -186,15 +144,44 @@ const deletecomment = async (req, res) => {
     console.log(error);
     res.status(500).json({
       isSuccess: false,
-      messagae: messageError,
+      message: messageError,
+    });
+  }
+};
+
+const findbyID = async (req, res) => {
+  try {
+    const { reationId } = req.params;
+    const reaction = await prisma.reactions.findFirst({
+      where: {
+        id: parseInt(reationId),
+      },
+    });
+    if (!reaction) {
+      res.status(404).json({
+        isSuccess: false,
+        message: messagenotfound,
+      });
+      return;
+    }
+    res.status(302).json({
+      isSuccess: fal,
+      message: foundedMessage,
+      reaction: reaction,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      isSuccess: false,
+      message: messageError,
     });
   }
 };
 
 module.exports = {
-  createCopmment,
-  readComment,
-  updateComment,
+  createReation,
+  readReaction,
+  updateReaction,
+  deleteReaction,
   findbyID,
-  deletecomment,
 };
