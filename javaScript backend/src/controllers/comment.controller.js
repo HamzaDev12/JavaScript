@@ -1,60 +1,63 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+
 const {
+  deletingMessage,
+  foundedMessage,
   messageCreated,
   messageError,
   messagenotfound,
   requiredMessage,
-  foundedMessage,
-  deletingMessage,
-} = require("../messages/index");
+  updatedMessage,
+} = require("../messages");
+const { parse } = require("dotenv");
 
-const createPost = async (req, res) => {
+const createCopmment = async (req, res) => {
   try {
-    const { content, userId } = req.body;
-    if (!content || !userId) {
-      res.status(404).json({
+    const { content, userId, postId } = req.body;
+    if (!content || !userId || !postId) {
+      res.status(400).json({
         isSuccess: false,
         message: requiredMessage,
       });
       return;
     }
-
-    const post = await prisma.posts.create({
+    const creatingComment = await prisma.comments.create({
       data: {
         content,
-        userID,
+        userId,
+        postId,
       },
     });
 
     res.status(201).json({
       isSuccess: true,
       message: messageCreated,
+      newRecord: creatingComment,
     });
   } catch (error) {
     console.log(error);
     res.status(500).json({
       isSuccess: false,
-      message: messageError,
+      messagae: messageError,
     });
   }
 };
 
-const readPost = async (req, res) => {
+const readComment = async (req, res) => {
   try {
-    const post = await prisma.posts.findMany();
-
-    if (!post || post.length === 0) {
+    const comment = await prisma.comments.findMany();
+    if (!comment || comment.length === 0) {
       res.status(404).json({
         isSuccess: false,
-        message: "No post found",
+        message: "No comments found",
       });
       return;
     }
     res.status(302).json({
       isSucces: true,
       message: foundedMessage,
-      post,
+      comments: comment,
     });
   } catch (error) {
     console.log(error);
@@ -65,122 +68,124 @@ const readPost = async (req, res) => {
   }
 };
 
-const updatePost = async (req, res) => {
+const updateComment = async (req, res) => {
   try {
-    const { postID, userID, content } = req.body;
-    if (!userID || !content || !postID) {
+    const { commentId, postId, userId, content } = req.body;
+    if (!commentId || !postId || !userId || !content) {
       res.status(400).json({
-        isSucces: false,
+        isSuccess: false,
         message: requiredMessage,
       });
       return;
     }
-    const post = await prisma.posts.findFirst({
-      whete: {
-        id: +postID,
+
+    const comment = await prisma.comments.findFirst({
+      where: {
+        id: +commentId,
       },
     });
-
-    if (!post) {
+    if (!comment) {
       res.status(404).json({
         isSuccess: false,
         message: messagenotfound,
       });
       return;
     }
-    const updatingPost = await prisma.posts.update({
+
+    const updatingComment = await prisma.comments.update({
       where: {
-        id: +postID,
+        id: comment.id,
       },
       data: {
-        userID,
+        postId,
         content,
+        userId,
       },
     });
 
     res.status(201).json({
-      isSucces: true,
+      isSuccess: true,
       message: updatedMessage,
-      updatedRecord: updatingPost,
+      newUpdate: updatingComment,
     });
   } catch (error) {
     console.log(error);
     res.status(500).json({
       isSuccess: false,
-      message: messageError,
+      messagae: messageError,
     });
   }
 };
 
 const findbyID = async (req, res) => {
   try {
-    const { postID } = req.params;
-    const post = await prisma.posts.findFirst({
+    const { commentId } = req.params;
+    const comment = await prisma.comments.findFirst({
       where: {
-        id: +postID,
+        id: parseInt(commentId),
       },
     });
-    if (!post) {
-      res.status(400).json({
-        isSucces: false,
+    if (!comment) {
+      res.status(404).json({
+        isSuccess: false,
         message: messagenotfound,
       });
       return;
     }
-
     res.status(302).json({
-      isSucces: true,
+      isSuccess: true,
       message: foundedMessage,
-      post,
+      findingData: comment,
     });
   } catch (error) {
     console.log(error);
     res.status(500).json({
       isSuccess: false,
-      message: messageError,
+      messagae: messageError,
     });
   }
 };
 
-const deletingPost = async (req, res) => {
+const deletecomment = async (req, res) => {
   try {
-    const { postID } = req.params;
-    const post = await prisma.posts.findFirst({
+    const { commentId } = req.params;
+    const comment = await prisma.comments.findFirst({
       where: {
-        id: +postID,
+        id: parseInt(commentId),
       },
     });
-    if (!post) {
-      res.status(400).json({
-        isSucces: false,
+
+    if (!comment) {
+      res.status(404).json({
+        isSuccess: false,
         message: messagenotfound,
       });
       return;
     }
 
-    const deleting = await prisma.posts.delete({
+    const deletingComment = await prisma.comments.delete({
       where: {
-        id: +postID,
+        id: comment.id,
       },
     });
 
     res.status(200).json({
-      isSucces: true,
+      isSuccess: true,
       message: deletingMessage,
     });
   } catch (error) {
     console.log(error);
     res.status(500).json({
       isSuccess: false,
-      message: messageError,
+      messagae: messageError,
     });
   }
 };
 
 module.exports = {
-  createPost,
-  readPost,
-  updatePost,
+  createCopmment,
+  readComment,
+  updateComment,
   findbyID,
-  deletingPost,
+  deletecomment,
 };

@@ -89,6 +89,13 @@ const updateuser = async (req, res) => {
 const getAllUser = async (req, res) => {
   try {
     const user = await prisma.users.findMany();
+    if (!user || user.length === 0) {
+      res.status(404).json({
+        isSuccess: false,
+        message: "No user found",
+      });
+      return;
+    }
     res.status(200).json({
       isSucces: true,
       message: "you get all users",
