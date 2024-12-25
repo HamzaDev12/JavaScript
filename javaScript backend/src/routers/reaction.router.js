@@ -12,6 +12,6 @@ router.get("/list", readReaction);
 router.get("/find/:reationId", findbyID);
 router.post("/create", createReation);
 router.put("/update", updateReaction);
-router.delete("/delete", deleteReaction);
+router.delete("/delete/:reationId", deleteReaction);
 
 module.exports = router;
