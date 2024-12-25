@@ -85,7 +85,66 @@ const updateReply = async (req, res) => {
   }
 };
 
+const readReply = async (req, res) => {
+  try {
+    const replys = await prisma.replys.findMany({
+      include: {
+        comment,
+      },
+    });
+    if (!replys || replys.length == 0) {
+      res.status(404).json({
+        isSuccess: false,
+        message: "not created any reply",
+      });
+      return;
+    }
+
+    res.status(302).json({
+      isSuccess: true,
+      message: foundedMessage,
+      youGetAll: replys,
+    });
+  } catch (error) {
+    res.status(500).json({
+      issuccess: false,
+      message: messageError,
+    });
+  }
+};
+
+const findbyID = async (req, res) => {
+  try {
+    const { replyId } = req.params;
+    const reply = await prisma.replys.findFirst({
+      where: {
+        id: +replyId,
+      },
+    });
+
+    if (!reply) {
+      res.status(404).json({
+        isSuccess: false,
+        message: "not created this ID",
+      });
+      return;
+    }
+    res.status(302).json({
+      isSuccess: true,
+      message: foundedMessage,
+      reply,
+    });
+  } catch (error) {
+    res.status(500).json({
+      issuccess: false,
+      message: messageError,
+    });
+  }
+};
+
 module.exports = {
   createReply,
   updateReply,
+  readReply,
+  findbyID,
 };
