@@ -142,9 +142,43 @@ const findbyID = async (req, res) => {
   }
 };
 
+const deleteReply = async (req, res) => {
+  try {
+    const { replyId } = req.params;
+    const reply = await prisma.replys.findFirst({
+      where: {
+        id: +replyId,
+      },
+    });
+    if (!reply) {
+      res.status(302).json({
+        isSuccess: false,
+        message: messagenotfound,
+      });
+      return;
+    }
+    const deletingReplay = await prisma.replys.delete({
+      where: {
+        id: +replyId,
+      },
+    });
+
+    res.status(200).json({
+      isSuccess: true,
+      message: deletingMessage,
+    });
+  } catch (error) {
+    res.status(500).json({
+      issuccess: false,
+      message: messageError,
+    });
+  }
+};
+
 module.exports = {
   createReply,
   updateReply,
   readReply,
   findbyID,
+  deleteReply,
 };

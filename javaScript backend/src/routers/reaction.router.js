@@ -1,5 +1,4 @@
 const { Router } = require("express");
-const router = Router();
 const {
   createReation,
   deleteReaction,
@@ -7,6 +6,7 @@ const {
   readReaction,
   updateReaction,
 } = require("../controllers/reacrion.controller");
+const router = Router();
 
 router.get("/list", readReaction);
 router.get("/find/:reationId", findbyID);

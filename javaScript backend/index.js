@@ -14,7 +14,7 @@ app.use("/users", userRouter);
 app.use("/posts", postRouter);
 app.use("/comments", commentRouter);
 app.use("/reactions", reactionRouter);
-// app.use("/reply", replyRouter);
+app.use("/reply", replyRouter);
 
 app.listen(PORT, () => {
   console.log(`server running on the port ${PORT}`);

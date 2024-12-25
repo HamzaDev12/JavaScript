@@ -1,5 +1,4 @@
 const { Router } = require("express");
-const router = Router();
 const {
   updateuser,
   createUser,
@@ -7,6 +6,7 @@ const {
   findbyId,
   deleteUser,
 } = require("../controllers/user.controller");
+const router = Router();
 
 router.post("/create", createUser);
 router.put("/update", updateuser);
