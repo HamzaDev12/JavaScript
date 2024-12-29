@@ -1,11 +1,17 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { messageErrorServer } from "../messages";
 import jws from "jsonwebtoken";
 import { prisma } from "..";
 import argon2 from "argon2";
 import { JWS_SECRET } from "../screts";
+import { badRequest } from "../exeptions/bad.req";
+import { codeError } from "../exeptions/root";
 
-export const signUp = async (req: Request, res: Response) => {
+export const signUp = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { email, name, password } = req.body;
     let user = await prisma.users.findFirst({
@@ -14,7 +20,9 @@ export const signUp = async (req: Request, res: Response) => {
       },
     });
     if (user) {
-      throw Error("already exist");
+      next(
+        new badRequest("user already exists", codeError.USER_ALREADY_EXISTS)
+      );
       return;
     }
     const hashPassword = await argon2.hash(password);
@@ -37,7 +45,11 @@ export const signUp = async (req: Request, res: Response) => {
   }
 };
 
-export const login = async (req: Request, res: Response) => {
+export const login = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { email, password } = req.body;
     const user = await prisma.users.findFirst({
@@ -46,7 +58,7 @@ export const login = async (req: Request, res: Response) => {
       },
     });
     if (!user) {
-      throw Error("user does not exist");
+      next(new badRequest("user does not exists", codeError.USER_NOT_FOUND));
       return;
     }
 
